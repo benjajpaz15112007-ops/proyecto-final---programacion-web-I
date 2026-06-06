@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Web: Contexto de Crisis y Economía Familiar</title>
+    <link rel="stylesheet" href="css/geministylesindex.css">
+    <script src="js/geminiscript.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <h1>Simulador Web de Abastecimiento, Precios y Consumo Familiar en Contexto de Crisis</h1>
+            <p class="subtitle">Desafío Final de Programación Web I</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#simuladores">Simuladores</a></li>
+                <li><a href="#casos-estudio">Casos de Estudio</a></li>
+                <li><a href="#conclusiones">Conclusiones</a></li>
+                <li><a href="#creditos">Créditos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <section id="inicio" class="card section-block">
+            <h2>1. Contexto del Desafío</h2>
+            <p>En el contexto actual que atraviesa el país, se observan problemas relacionados con el abastecimiento de carburantes, transporte, alimentos, incremento de precios, rumores de escasez, bloqueos, conflictos sociales y pérdida del poder adquisitivo familiar. Este desafío propone el desarrollo de una página web interactiva que permita representar, calcular y visualizar algunos de estos problemas mediante modelos matemáticos sencillos.</p>
+            <p><strong>Objetivo General:</strong> Diseñar y desarrollar una página web interactiva utilizando HTML5, CSS y JavaScript, que permita simular situaciones reales relacionadas con abastecimiento, precios, reservas, transporte o consumo familiar, aplicando buenas prácticas de diseño web y programación básica.</p>
+        </section>
+
+        <section id="contexto" class="card section-block">
+            <h2>2. Finalidad y Contexto del Proyecto</h2>
+            <p>La finalidad del proyecto no es tomar una posición política, sino crear una aplicación web educativa que ayude a comprender cómo ciertos factores pueden afectar el abastecimiento, los precios, el consumo y la toma de decisiones familiares o comunitarias. A través de la modelación matemática abstracta de situaciones cotidianas, se busca dotar de herramientas analíticas para comprender el impacto directo de los fenómenos económicos en el bienestar del hogar.</p>
+        </section>
+
+        <section id="simuladores" class="section-block">
+            <h2>3. Simuladores Interactivos</h2>
+            <p class="section-intro">Seleccione una de las pestañas a continuación para interactuar con los diferentes modelos de simulación económica y de recursos implementados.</p>
+
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchTab(event, 'scen-carburante')">Abastecimiento de Carburantes</button>
+                <button class="tab-btn" onclick="switchTab(event, 'scen-alimentos')">Precios de Alimentos</button>
+                <button class="tab-btn" onclick="switchTab(event, 'scen-transporte')">Costo de Transporte</button>
+                <button class="tab-btn" onclick="switchTab(event, 'scen-adquisitivo')">Poder Adquisitivo</button>
+            </div>
+
+            <div id="scen-carburante" class="tab-content active-content card">
+                <h3>Escenario A: Simulador de Abastecimiento de Carburantes</h3>
+                <p>Una estación de servicio tiene una cantidad limitada de carburante. Calcule cuántos días durará la reserva según el consumo diario y determine el momento crítico de escasez.</p>
+                
+                <form id="form-carburante" onsubmit="calcularCarburante(event)">
+                    <div class="form-group">
+                        <label for="carb-inicial">Cantidad inicial de carburante (litros):</label>
+                        <input type="number" id="carb-inicial" min="0" step="any" required placeholder="Ej. 10000">
+                    </div>
+                    <div class="form-group">
+                        <label for="carb-consumo">Consumo diario estimado (litros):</label>
+                        <input type="number" id="carb-consumo" min="0" step="any" required placeholder="Ej. 1200">
+                    </div>
+                    <div class="form-group">
+                        <label for="carb-reabastecimiento">Cantidad de reabastecimiento diario (litros):</label>
+                        <input type="number" id="carb-reabastecimiento" min="0" step="any" required placeholder="Ej. 300">
+                    </div>
+                    <div class="form-group">
+                        <label for="carb-critico">Nivel crítico de reserva (litros):</label>
+                        <input type="number" id="carb-critico" min="0" step="any" required placeholder="Ej. 2000">
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Simular Reserva</button>
+                        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario('form-carburante', 'res-carburante')">Limpiar</button>
+                    </div>
+                </form>
+
+                <div id="res-carburante" class="result-box hidden"></div>
+            </div>
+
+            <div id="scen-alimentos" class="tab-content card">
+                <h3>Escenario B: Simulador de Precios de Alimentos</h3>
+                <p>Los precios de algunos productos de la canasta familiar aumentan durante el mes. Calcule el gasto aproximado de una familia y el porcentaje de incremento real.</p>
+                
+                <form id="form-alimentos" onsubmit="calcularAlimentos(event)">
+                    <div class="form-group">
+                        <label for="alim-producto">Producto de la canasta básica:</label>
+                        <select id="alim-producto" required>
+                            <option value="" disabled selected>Seleccione un producto...</option>
+                            <option value="Arroz">Arroz</option>
+                            <option value="Papa">Papa</option>
+                            <option value="Aceite">Aceite</option>
+                            <option value="Otro">Otro producto general</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alim-anterior">Precio anterior por unidad (Bs):</label>
+                        <input type="number" id="alim-anterior" min="0.01" step="any" required placeholder="Ej. 8">
+                    </div>
+                    <div class="form-group">
+                        <label for="alim-actual">Precio actual por unidad (Bs):</label>
+                        <input type="number" id="alim-actual" min="0.01" step="any" required placeholder="Ej. 11">
+                    </div>
+                    <div class="form-group">
+                        <label for="alim-cantidad">Cantidad consumida por semana (unidades):</label>
+                        <input type="number" id="alim-cantidad" min="1" step="1" required placeholder="Ej. 2.5 (en promedio al mes)">
+                    </div>
+                    <div class="form-group">
+                        <label for="alim-semanas">Número de semanas a simular:</label>
+                        <input type="number" id="alim-semanas" min="1" max="52" step="1" required placeholder="4 semanas para un mes comercial">
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Calcular Impacto</button>
+                        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario('form-alimentos', 'res-alimentos')">Limpiar</button>
+                    </div>
+                </form>
+
+                <div id="res-alimentos" class="result-box hidden"></div>
+            </div>
+
+            <div id="scen-transporte" class="tab-content card">
+                <h3>Escenario C: Simulador de Costo de Transporte</h3>
+                <p>El transporte se ve afectado por bloqueos, desvíos o aumento de combustible. Estime el aumento monetario y temporal del costo de traslado semanal o mensual.</p>
+                
+                <form id="form-transporte" onsubmit="calcularTransporte(event)">
+                    <div class="form-group">
+                        <label for="trans-dist-normal">Distancia normal de ruta (km):</label>
+                        <input type="number" id="trans-dist-normal" min="0.1" step="any" required placeholder="Ej. 10">
+                    </div>
+                    <div class="form-group">
+                        <label for="trans-dist-desvio">Distancia con desvío / bloqueo (km):</label>
+                        <input type="number" id="trans-dist-desvio" min="0.1" step="any" required placeholder="Ej. 16">
+                    </div>
+                    <div class="form-group">
+                        <label for="trans-costo-km">Costo operativo por kilómetro (Bs):</label>
+                        <input type="number" id="trans-costo-km" min="0" step="any" required placeholder="Ej. 2">
+                    </div>
+                    <div class="form-group">
+                        <label for="trans-viajes">Número de viajes por semana:</label>
+                        <input type="number" id="trans-viajes" min="1" step="1" required placeholder="Ej. 5">
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Simular Costos</button>
+                        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario('form-transporte', 'res-transporte')">Limpiar</button>
+                    </div>
+                </form>
+
+                <div id="res-transporte" class="result-box hidden"></div>
+            </div>
+
+            <div id="scen-adquisitivo" class="tab-content card">
+                <h3>Escenario F: Simulador de Pérdida del Poder Adquisitivo</h3>
+                <p>Una familia percibe el mismo salario nominal, pero los precios generales de los bienes de consumo aumentan. Calcule el nivel exacto de afectación familiar.</p>
+                
+                <form id="form-adquisitivo" onsubmit="calcularAdquisitivo(event)">
+                    <div class="form-group">
+                        <label for="adq-ingreso">Ingreso familiar mensual fijo (Bs):</label>
+                        <input type="number" id="adq-ingreso" min="1" step="any" required placeholder="Ej. 3500">
+                    </div>
+                    <div class="form-group">
+                        <label for="adq-gasto-anterior">Gasto mensual total anterior (Bs):</label>
+                        <input type="number" id="adq-gasto-anterior" min="0" step="any" required placeholder="Ej. 2000">
+                    </div>
+                    <div class="form-group">
+                        <label for="adq-gasto-actual">Gasto mensual total actual (Bs):</label>
+                        <input type="number" id="adq-gasto-actual" min="0" step="any" required placeholder="Ej. 2800">
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Analizar Poder de Compra</button>
+                        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario('form-adquisitivo', 'res-adquisitivo')">Limpiar</button>
+                    </div>
+                </form>
+
+                <div id="res-adquisitivo" class="result-box hidden"></div>
+            </div>
+        </section>
+
+        <section id="casos-estudio" class="card section-block">
+            <h2>4. Casos de Estudio para Probar</h2>
+            <p>Utilice los siguientes datos de prueba predefinidos en los formularios de la sección superior para verificar el correcto funcionamiento matemático del motor de simulación interna:</p>
+            
+            <div class="grid-casos">
+                <div class="sub-card">
+                    <h4>Caso de Estudio 1: Carburantes</h4>
+                    <table class="data-table">
+                        <thead><tr><th>Dato</th><th>Valor</th></tr></thead>
+                        <tbody>
+                            <tr><td>Reserva inicial</td><td>10,000 litros</td></tr>
+                            <tr><td>Consumo diario</td><td>1,200 litros</td></tr>
+                            <tr><td>Reabastecimiento diario</td><td>300 litros</td></tr>
+                            <tr><td>Nivel crítico</td><td>2,000 litros</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="expected"><strong>Resultado esperado:</strong> La reserva llegará al nivel crítico en aproximadamente 9 días antes de agotarse por completo.</p>
+                </div>
+
+                <div class="sub-card">
+                    <h4>Caso de Estudio 2: Alimentos de Canasta</h4>
+                    <table class="data-table">
+                        <thead><tr><th>Producto</th><th>P. Anterior</th><th>P. Actual</th><th>Cant. Mensual</th></tr></thead>
+                        <tbody>
+                            <tr><td>Arroz</td><td>8 Bs</td><td>11 Bs</td><td>10 u</td></tr>
+                            <tr><td>Papa</td><td>7 Bs</td><td>10 Bs</td><td>8 u</td></tr>
+                            <tr><td>Aceite</td><td>12 Bs</td><td>18 Bs</td><td>4 u</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="expected"><strong>Resultado esperado:</strong> Calcula el gasto anterior agregado, el gasto actual y la brecha financiera inflacionaria.</p>
+                </div>
+
+                <div class="sub-card">
+                    <h4>Caso de Estudio 3: Transporte con Desvío</h4>
+                    <table class="data-table">
+                        <thead><tr><th>Dato</th><th>Valor</th></tr></thead>
+                        <tbody>
+                            <tr><td>Distancia normal</td><td>10 km</td></tr>
+                            <tr><td>Distancia con desvío</td><td>16 km</td></tr>
+                            <tr><td>Costo por km</td><td>2 Bs</td></tr>
+                            <tr><td>Viajes por semana</td><td>5 viajes</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="expected"><strong>Resultado esperado:</strong> Determina un sobrecosto neto operativo de 60 Bs semanales.</p>
+                </div>
+
+                <div class="sub-card">
+                    <h4>Caso de Estudio 4: Poder Adquisitivo</h4>
+                    <table class="data-table">
+                        <thead><tr><th>Dato</th><th>Valor</th></tr></thead>
+                        <tbody>
+                            <tr><td>Ingreso Mensual</td><td>3,500 Bs</td></tr>
+                            <tr><td>Gasto Anterior</td><td>2,000 Bs</td></tr>
+                            <tr><td>Gasto Actual</td><td>2,800 Bs</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="expected"><strong>Resultado esperado:</strong> Pérdida del poder de compra del 40% sobre el excedente y saldo reducido a niveles críticos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusiones" class="card section-block">
+            <h2>5. Conclusiones</h2>
+            <div class="conclusiones-contenido">
+                <p>El desarrollo de modelos informáticos y algoritmos de simulación permite visibilizar de forma objetiva y cuantificable el impacto real de las crisis en la economía familiar. A través de este proyecto, se demuestra cómo variaciones porcentuales nominales aparentemente pequeñas en insumos críticos como carburantes y transporte desencadenan un efecto multiplicador negativo sobre los presupuestos familiares básicos.</p>
+                <p>La implementación práctica de estas herramientas utilizando tecnologías estándar de la Web (HTML5, CSS3 y JavaScript) dota a los administradores y analistas de una vía de comunicación clara, responsiva y accesible desde cualquier dispositivo, permitiendo una planificación financiera preventiva más rigurosa ante contextos macroeconómicos de alta volatilidad.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="creditos" class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 - Proyecto de Simulación Web de Crisis</p>
+            <p class="author-info">Desarrollado por: <strong>Benjamin Jhonatan Paz Mamani - Estudiante de Informatica - UMSA</strong></p>
+        </div>
+    </footer>
+
+</body>
+</html>
